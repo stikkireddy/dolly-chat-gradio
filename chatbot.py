@@ -65,8 +65,9 @@ def clear_history(history):
 
 
 with gr.Blocks() as demo:
-    gr.Markdown("# Dolly Chatbot Powered By Databricks ML Serving")
-    with gr.Accordion("Settings", open=True):
+    gr.Markdown("# Dolly Chatbot Powered By Databricks ML Serving - Author: Sri Tikkireddy")
+    gr.Markdown("## Configure Settings and Start Chatting")
+    with gr.Accordion("Settings: Click to Configure", open=False):
         with gr.Row():
             endpoint = gr.Textbox(label="Endpoint Url", interactive=True)
             token = gr.Textbox(label="Token", interactive=True, type="password")
