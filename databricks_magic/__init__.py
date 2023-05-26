@@ -15,7 +15,6 @@ class ProxySettings:
 class DatabricksApp:
 
     def __init__(self, port):
-        self._fastapi_app = self._make_fastapi_app()
         # self._app = data_app
         self._port = port
         import IPython
@@ -26,11 +25,12 @@ class DatabricksApp:
         self._cloud = self.get_cloud()
         # create proxy settings after determining the cloud
         self._ps = self.get_proxy_settings()
+        self._fastapi_app = self._make_fastapi_app(root_path=self._ps.url_base_path.rstrip("/"))
         self._streamlit_script = None
         # after everything is set print out the url
 
-    def _make_fastapi_app(self) -> FastAPI:
-        fast_api_app = FastAPI()
+    def _make_fastapi_app(self, root_path) -> FastAPI:
+        fast_api_app = FastAPI(root_path=root_path)
 
         @fast_api_app.get("/")
         def read_main():
@@ -79,7 +79,7 @@ class DatabricksApp:
 
     def mount_gradio_app(self, gradio_app):
         import gradio as gr
-        gr.mount_gradio_app(self._fastapi_app, gradio_app, "/gradio")
+        gr.mount_gradio_app(self._fastapi_app, gradio_app, f"/gradio")
         # self._fastapi_app.mount("/gradio", gradio_app)
         self.display_url(self.get_gradio_url())
 
@@ -89,7 +89,8 @@ class DatabricksApp:
         return "aws"
 
     def get_gradio_url(self):
-        return f'<a href="{self._ps.proxy_url}gradio">Click to go to Gradio App!</a>'
+        # must end with a "/" for it to not redirect
+        return f'<a href="{self._ps.proxy_url}gradio/">Click to go to Gradio App!</a>'
 
     def display_url(self, url):
         self._display_html(url)

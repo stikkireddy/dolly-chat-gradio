@@ -95,7 +95,7 @@ with gr.Blocks() as demo:
 
 # COMMAND ----------
 
-dbx_app.mount_gradio_app(gr.routes.App.create_app(demo))
+dbx_app.mount_gradio_app(demo)
 
 # COMMAND ----------
 
