@@ -1,0 +1,6 @@
+gradio==3.19.1
+requests
+Jinja2==3.0.3
+fastapi
+uvicorn
+nest_asyncio
