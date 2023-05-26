@@ -78,7 +78,9 @@ class DatabricksApp:
         return self._ps.url_base_path
 
     def mount_gradio_app(self, gradio_app):
-        self._fastapi_app.mount("/gradio", gradio_app)
+        import gradio as gr
+        gr.mount_gradio_app(self._fastapi_app, gradio_app, "/gradio")
+        # self._fastapi_app.mount("/gradio", gradio_app)
         self.display_url(self.get_gradio_url())
 
     def get_cloud(self):

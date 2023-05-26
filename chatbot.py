@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %pip install Jinja2==3.0.3 fastapi uvicorn nest_asyncio gradio==3.19.1
+# MAGIC %pip install Jinja2==3.0.3 fastapi uvicorn nest_asyncio gradio==3.32.0
 
 # COMMAND ----------
 
